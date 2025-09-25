@@ -1,0 +1,107 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file    usart.h
+  * @brief   This file contains all the function prototypes for
+  *          the usart.c file
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2025 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __USART_H__
+#define __USART_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* USER CODE BEGIN Includes */
+#include "string.h"
+#include <stdbool.h>
+#include "motor.h"
+#include "communication.h"
+/* USER CODE END Includes */
+
+extern UART_HandleTypeDef huart1;
+
+extern UART_HandleTypeDef huart2;
+
+extern UART_HandleTypeDef huart3;
+
+/* USER CODE BEGIN Private defines */
+#define UART_BUFFER_SIZE 100  // ���󻺳�������߿ɿ���
+#define HEARTBEAT_INTERVAL_MS 1000  // ���������ͼ��
+
+// ͨ�������
+#define COMMAND_STOP       "STOP\n"
+#define COMMAND_START      "START\n"
+#define COMMAND_STATUS     "STATUS\n"
+
+// ��Ӧ��Ϣ����
+#define RESPONSE_ACK       "ACK\n"
+#define RESPONSE_READY     "READY\n"
+#define RESPONSE_ERROR     "ERROR\n"
+#define HEARTBEAT_MESSAGE  "STM32_ALIVE\n"
+
+// ͨ��״̬������
+#define UART_STATE_IDLE       0
+#define UART_STATE_RECEIVING  1
+#define UART_STATE_PROCESSING 2
+/* USER CODE END Private defines */
+
+void MX_USART1_UART_Init(void);
+void MX_USART2_UART_Init(void);
+void MX_USART3_UART_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+/* USER CODE BEGIN Prototypes */
+// USARTͨ�ź���
+void USART1_InitCommunication(void);
+void USART2_InitCommunication(void);
+void USART1_StartReception(void);
+void USART1_ProcessReceivedData(void);
+void USART1_SendString(const char* str);
+void USART1_SendHeartbeat(void);
+void USART2_SendString(const char* str);
+// �������
+bool USART1_HasCommand(void);
+const char* USART1_GetCommand(void);
+void USART1_ClearCommand(void);
+void USART1_processReceivedData(void);
+void USART2_ProcessReceivedData(void);
+// ״̬��ѯ����
+bool USART1_IsConnected(void);
+void USART1_ResetConnectionStatus(void);
+void USART2_StartReception(void);
+// ���ϵͳ״̬��ѯ����
+int32_t USART1_IsSystemRunning(void);
+// 添加USART3相关函数声明
+void USART3_InitCommunication(void);
+void USART3_StartReception(void);
+void USART3_ProcessReceivedData(void);
+void USART3_SendString(const char* str);
+bool USART3_HasCommand(void);
+const char* USART3_GetCommand(void);
+void USART3_ClearCommand(void);
+bool USART3_IsConnected(void);
+/* USER CODE END Prototypes */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __USART_H__ */
+

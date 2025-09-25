@@ -1,0 +1,6 @@
+{
+    "cmake.sourceDirectory": "D:/robo/test/Drivers/CMSIS/NN",
+    "files.associations": {
+        "compare": "c"
+    }
+}
